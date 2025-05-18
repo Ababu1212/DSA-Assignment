@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Humble Apology</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3a0ca3;
+            --secondary: #7209b7;
+            --accent: #4361ee;
+            --light: #f8f9fa;
+            --dark: #1b263b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            color: var(--dark);
+            background: var(--light);
+        }
+        
+        /* Parallax Sections */
+        .parallax {
+            min-height: 100vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .parallax::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        #section1 {
+            background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        #section2 {
+            background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80');
+        }
+        
+        #section3 {
+            background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+        }
+        
+        .parallax-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            background: white;
+            color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        /* Team Section */
+        .team-section {
+            padding: 5rem 2rem;
+            background: white;
+            text-align: center;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        /* Signature */
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-top: 3rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <section id="section1" class="parallax">
+        <div class="parallax-content">
+            <h1 class="animate">We Are Truly Sorry</h1>
+            <h2 class="animate delay-1">For Our Late Submission</h2>
+            <p class="animate delay-2">Though delayed, every line of code was written with dedication and passion for Computer Science.</p>
+            <a href="#team" class="btn animate delay-3">Meet Our Team</a>
+        </div>
+    </section>
+    
+    <section id="section2" class="parallax">
+        <div class="parallax-content">
+            <h1 class="animate">Our Commitment</h1>
+            <p class="animate delay-1">We've implemented:</p>
+            <ul style="text-align: left; display: inline-block;" class="animate delay-2">
+                <li>Custom data structures in C++</li>
+                <li>Comprehensive documentation</li>
+                <li>Thorough testing procedures</li>
+                <li>Responsive HTML presentation</li>
+            </ul>
+        </div>
+    </section>
+    
+    <section id="team" class="team-section">
+        <h1 style="color: var(--primary);">The Team Behind the Project</h1>
+        <p style="color: var(--dark); max-width: 700px; margin: 0 auto 2rem;">Five passionate students who poured their hearts into this project</p>
+        
+        <div class="team-grid">
+            <div class="team-member animate">
+                <img src="img/abrisha.jpg" alt="Abraham">
+                <h3>Abraham Abunu</h3>
+                <p><strong>ID:</strong> 1600595</p>
+            </div>
+            
+            <div class="team-member animate delay-1">
+                <img src="img/aman.jpg" alt="Amanuel">
+                <h3>Amanuel Fikade</h3>
+                <p><strong>ID:</strong> 1600914</p>
+            </div>
+            
+            <div class="team-member animate delay-1">
+                <img src="img/abe.jpg" alt="Abaynew">
+                <h3>Abaynew Dessie</h3>
+                <p><strong>ID:</strong> 1600984</p>
+            </div>
+            
+            <!-- Member 4 -->
+            <div class="team-member animate delay-2">
+                <img src="img/hareg.jpg" alt="Haregeweyin">
+                <h3>Haregeweyin Atakilt</h3>
+                <p><strong>ID:</strong> 1601704</p>
+            </div>
+            
+            <!-- Member 5 -->
+            <div class="team-member animate delay-2">
+                <img src="img/beki.jpg" alt="Bereket">
+                <h3>Bereket Tadele</h3>
+                <p><strong>ID:</strong> 1600798</p>
+            </div>
+        </div>
+        
+        <div class="signature animate delay-3">With Humble Regards</div>
+    </section>
+    
+    <!-- Final Section -->
+    <section id="section3" class="parallax">
+        <div class="parallax-content">
+            <h1 class="animate">Thank You For Your Understanding</h1>
+            <p class="animate delay-1">We hope our work speaks louder than our tardiness</p>
+            <a href="https://github.com/Ababu1212/DSA-Assignment" class="btn animate delay-2">View Our Project</a>
+        </div>
+    </section>
+    
+    <script>
+        // Scroll animation trigger
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(50px)';
+                el.style.transition = 'all 1s ease';
+                observer.observe(el);
+            });
+            
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
