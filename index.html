@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRM Project Team | University Group</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --dark: #1b263b;
+      --light: #f8f9fa;
+      --success: #4cc9f0;
+      --warning: #f72585;
+      --text: #2b2d42;
+      --text-light: #8d99ae;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      margin: 0;
+      padding: 0;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    header {
+      background: linear-gradient(to right, var(--dark), var(--secondary));
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--accent), var(--success));
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    header p {
+      margin: 1rem auto 0;
+      max-width: 600px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+      gap: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      margin: 0;
+      width: 280px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      border: none;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+    }
+    
+    .card-header {
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .card-header h3 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+    
+    .card-header p {
+      margin: 0.5rem 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .card-body p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+    
+    .hidden {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    
+    .visible {
+      max-height: 200px;
+      opacity: 1;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .section {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    
+    .section h2 {
+      text-align: center;
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(to right, var(--accent), var(--success));
+    }
+    
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .tech-item {
+      background: var(--light);
+      padding: 1rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.2s ease;
+    }
+    
+    .tech-item:hover {
+      transform: translateY(-3px);
+      background: #e9ecef;
+    }
+    
+    .tech-item i {
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+    
+    /* Code Display Styles */
+    .code-container {
+      position: relative;
+      margin-top: 2rem;
+    }
+    
+    .code-tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: -1px;
+    }
+    
+    .code-tab {
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      background: #f1f1f1;
+      border: 1px solid #ddd;
+      border-bottom: none;
+      border-radius: 5px 5px 0 0;
+      margin-right: 5px;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    
+    .code-tab.active {
+      background: white;
+      border-bottom: 1px solid white;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .code-content {
+      display: none;
+    }
+    
+    .code-content.active {
+      display: block;
+    }
+    
+    pre {
+      margin: 0;
+      border-radius: 0 0 5px 5px;
+    }
+    
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.2);
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .copy-btn:hover {
+      background: rgba(0,0,0,0.3);
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--dark);
+      color: white;
+      margin-top: 3rem;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: white;
+      font-size: 1.2rem;
+      transition: all 0.2s ease;
+    }
+    
+    .social-links a:hover {
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      .container {
+        padding: 1rem;
+      }
+      
+      .section {
+        padding: 1.5rem;
+      }
+      
+      .tech-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .code-tabs {
+        flex-wrap: wrap;
+      }
+      
+      .code-tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Customer Management System Project</h1>
+  <p>A high-performance customer relationship management system built with C++ and custom data structures</p>
+</header>
+
+<div class="container">
+  <div class="card" onclick="toggleDetails('abraham')">
+    <div class="card-header">
+      <h3>Abraham Abunu</h3>
+      <p><strong>ID:</strong> 1600595</p>
+    </div>
+    <div class="card-body">
+      <p>Core Data Structures Developer</p>
+      <div class="hidden" id="abraham">
+        <p>Designed and implemented the Linked List architecture with optimized sorting algorithms. Specialized in record organization and memory-efficient data handling. Developed the bubble sort implementation for customer records.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleDetails('amanuel')">
+    <div class="card-header">
+      <h3>Amanuel Fikade</h3>
+      <p><strong>ID:</strong> 1600914</p>
+    </div>
+    <div class="card-body">
+      <p>System Architect</p>
+      <div class="hidden" id="amanuel">
+        <p>Created the modular C++ architecture using OOP principles. Designed the class hierarchy for Customer, Sales, Campaign, and Ticket management. Implemented core business logic and inter-module communication.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleDetails('abaynew')">
+    <div class="card-header">
+      <h3>Abaynew Dessie</h3>
+      <p><strong>ID:</strong> 1600984</p>
+    </div>
+    <div class="card-body">
+      <p>Data Operations Specialist</p>
+      <div class="hidden" id="abaynew">
+        <p>Implemented CRUD operations with dynamic memory management. Developed the search algorithms and data validation systems. Optimized update/delete operations for large datasets.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleDetails('haregeweyin')">
+    <div class="card-header">
+      <h3>Haregeweyin Atakilt</h3>
+      <p><strong>ID:</strong> 1601704</p>
+    </div>
+    <div class="card-body">
+      <p>UX/Interface Designer</p>
+      <div class="hidden" id="haregeweyin">
+        <p>Created the intuitive console interface with hierarchical menus. Designed the user interaction flow and input validation system. Implemented color coding and visual feedback for better usability.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleDetails('bereket')">
+    <div class="card-header">
+      <h3>Bereket Tadele</h3>
+      <p><strong>ID:</strong> 1600798</p>
+    </div>
+    <div class="card-body">
+      <p>Quality Assurance Engineer</p>
+      <div class="hidden" id="bereket">
+        <p>Developed comprehensive test cases and performed system integration testing. Identified and resolved memory leaks and edge cases. Ensured cross-platform compatibility and performance optimization.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Technologies Implemented</h2>
+  <div class="tech-grid">
+    <div class="tech-item">
+      <i class="fas fa-code"></i>
+      <span>C++17 Standard</span>
+    </div>
+    <div class="tech-item">
+      <i class="fas fa-project-diagram"></i>
+      <span>Custom Linked Lists</span>
+    </div>
+    <div class="tech-item">
+      <i class="fas fa-object-group"></i>
+      <span>OOP Principles</span>
+    </div>
+    <div class="tech-item">
+      <i class="fas fa-terminal"></i>
+      <span>Console Interface</span>
+    </div>
+    <div class="tech-item">
+      <i class="fas fa-sort-amount-down"></i>
+      <span>Sorting Algorithms</span>
+    </div>
+    <div class="tech-item">
+      <i class="fas fa-memory"></i>
+      <span>Dynamic Memory</span>
+    </div>
+    <div class="tech-item">
+      <i class="fas fa-file-code"></i>
+      <span>Modular Design</span>
+    </div>
+    <div class="tech-item">
+      <i class="fas fa-bug"></i>
+      <span>Debugging Tools</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Key Project Insights</h2>
+  <p>
+    This CRM project provided deep understanding of low-level data structure implementation and memory management in C++. We mastered:
+  </p>
+  <ul style="columns: 2; list-style-type: none; padding: 0;">
+    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Pointer arithmetic and memory allocation</li>
+    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Custom linked list implementation</li>
+    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Efficient algorithm design</li>
+    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Console interface best practices</li>
+    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Team collaboration with version control</li>
+    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Debugging complex data structures</li>
+    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Performance optimization techniques</li>
+    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Modular code organization</li>
+  </ul>
+  <p style="margin-top: 1.5rem;">
+    The project challenged us to balance functionality with resource constraints, resulting in a highly optimized system capable of managing thousands of customer records efficiently in a console environment.
+  </p>
+</div>
+
+<div class="section">
+  <h2>Project Source Code</h2>
+  <p>Explore the core implementation of our Customer Management System:</p>
+  
+  <div class="code-container">
+    <div class="code-tabs">
+      <div class="code-tab active" onclick="showCodeTab('main-code')">Main System</div>
+      <div class="code-tab" onclick="showCodeTab('module-code')">Module Class</div>
+      <div class="code-tab" onclick="showCodeTab('features-code')">Key Features</div>
+    </div>
+    
+    <div class="code-content active" id="main-code">
+      <button class="copy-btn" onclick="copyCode('main-code-content')">
+        <i class="fas fa-copy"></i> Copy
+      </button>
+      <pre><code class="language-cpp" id="main-code-content">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct Record {
+    int id;
+    string field1, field2, field3;
+    Record* next;
+};
+
+class Module {
+private:
+    Record* head = nullptr;
+    string moduleName, label1, label2, label3;
+
+public:
+    Module(string name, string l1, string l2, string l3)
+        : moduleName(name), label1(l1), label2(l2), label3(l3) {}
+
+    ~Module() {
+        while (head) {
+            Record* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+
+    bool idExists(int id) {
+        Record* temp = head;
+        while (temp) {
+            if (temp->id == id) return true;
+            temp = temp->next;
+        }
+        return false;
+    }
+
+    void addRecord(int id, string f1, string f2, string f3) {
+        if (idExists(id)) {
+            cout &lt;&lt; "Error: Record with ID " &lt;&lt; id &lt;&lt; " already exists.\n";
+            return;
+        }
+        Record* newRec = new Record{id, f1, f2, f3, nullptr};
+        if (!head) {
+            head = newRec;
+        } else {
+            Record* temp = head;
+            while (temp->next) temp = temp->next;
+            temp->next = newRec;
+        }
+        cout &lt;&lt; moduleName &lt;&lt; " record added successfully.\n";
+    }
+
+    Record* searchRecord(int id) {
+        Record* temp = head;
+        while (temp) {
+            if (temp->id == id) return temp;
+            temp = temp->next;
+        }
+        return nullptr;
+    }
+
+    void updateRecord(int id, string f1, string f2, string f3) {
+        Record* rec = searchRecord(id);
+        if (rec) {
+            rec->field1 = f1;
+            rec->field2 = f2;
+            rec->field3 = f3;
+            cout &lt;&lt; moduleName &lt;&lt; " record updated successfully.\n";
+        } else {
+            cout &lt;&lt; "Error: Record not found.\n";
+        }
+    }
+
+    void deleteRecord(int id) {
+        if (!head) {
+            cout &lt;&lt; "Error: No records to delete.\n";
+            return;
+        }
+
+        if (head->id == id) {
+            Record* del = head;
+            head = head->next;
+            delete del;
+            cout &lt;&lt; "Record deleted successfully.\n";
+            return;
+        }
+
+        Record* temp = head;
+        while (temp->next && temp->next->id != id)
+            temp = temp->next;
+
+        if (temp->next) {
+            Record* del = temp->next;
+            temp->next = temp->next->next;
+            delete del;
+            cout &lt;&lt; "Record deleted successfully.\n";
+        } else {
+            cout &lt;&lt; "Error: Record not found.\n";
+        }
+    }
+
+    void displayRecords() {
+        if (!head) {
+            cout &lt;&lt; "No records found.\n";
+            return;
+        }
+
+        cout &lt;&lt; "\n--- " &lt;&lt; moduleName &lt;&lt; " Records ---\n";
+        cout &lt;&lt; left &lt;&lt; setw(10) &lt;&lt; "ID" &lt;&lt; setw(20) &lt;&lt; label1
+             &lt;&lt; setw(20) &lt;&lt; label2 &lt;&lt; setw(20) &lt;&lt; label3 &lt;&lt; "\n";
+        cout &lt;&lt; string(70, '-') &lt;&lt; endl;
+
+        Record* temp = head;
+        while (temp) {
+            cout &lt;&lt; left &lt;&lt; setw(10) &lt;&lt; temp->id &lt;&lt; setw(20) &lt;&lt; temp->field1
+                 &lt;&lt; setw(20) &lt;&lt; temp->field2 &lt;&lt; setw(20) &lt;&lt; temp->field3 &lt;&lt; "\n";
+            temp = temp->next;
+        }
+    }
+
+    void sortByField1() {
+        if (!head || !head->next) return;
+
+        bool swapped;
+        do {
+            swapped = false;
+            Record* current = head;
+            while (current->next) {
+                if (current->field1 > current->next->field1) {
+                    swap(current->id, current->next->id);
+                    swap(current->field1, current->next->field1);
+                    swap(current->field2, current->next->field2);
+                    swap(current->field3, current->next->field3);
+                    swapped = true;
+                }
+                current = current->next;
+            }
+        } while (swapped);
+
+        cout &lt;&lt; moduleName &lt;&lt; " records sorted by " &lt;&lt; label1 &lt;&lt; ".\n";
+    }
+
+    void moduleMenu() {
+        int choice;
+        do {
+            cout &lt;&lt; "\n--- " &lt;&lt; moduleName &lt;&lt; " Module ---\n";
+            cout &lt;&lt; "1. Add Record\n2. Search Record\n3. Update Record\n";
+            cout &lt;&lt; "4. Delete Record\n5. Display Records\n6. Sort Records\n0. Back\n";
+            cout &lt;&lt; "Enter your choice: ";
+            cin >> choice;
+
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout &lt;&lt; "Invalid input. Please enter a number.\n";
+                continue;
+            }
+
+            int id;
+            string f1, f2, f3;
+
+            switch (choice) {
+                case 1:
+                    cout &lt;&lt; "Enter ID: "; cin >> id;
+                    cin.ignore();
+                    cout &lt;&lt; "Enter " &lt;&lt; label1 &lt;&lt; ": "; getline(cin, f1);
+                    cout &lt;&lt; "Enter " &lt;&lt; label2 &lt;&lt; ": "; getline(cin, f2);
+                    cout &lt;&lt; "Enter " &lt;&lt; label3 &lt;&lt; ": "; getline(cin, f3);
+                    addRecord(id, f1, f2, f3);
+                    break;
+
+                case 2:
+                    cout &lt;&lt; "Enter ID to search: "; cin >> id;
+                    if (Record* r = searchRecord(id))
+                        cout &lt;&lt; "Found: "&lt;&lt;endl&lt;&lt;" Name: "&lt;&lt; r->field1 &lt;&lt;endl&lt;&lt;" Email: "&lt;&lt; r->field2 &lt;&lt;endl&lt;&lt;" Status: "&lt;&lt; r->field3 &lt;&lt; "\n";
+                    else
+                        cout &lt;&lt; "Record not found.\n";
+                    break;
+
+                case 3:
+                    cout &lt;&lt; "Enter ID to update: "; cin >> id;
+                    cin.ignore();
+                    cout &lt;&lt; "Enter new " &lt;&lt; label1 &lt;&lt; ": "; getline(cin, f1);
+                    cout &lt;&lt; "Enter new " &lt;&lt; label2 &lt;&lt; ": "; getline(cin, f2);
+                    cout &lt;&lt; "Enter new " &lt;&lt; label3 &lt;&lt; ": "; getline(cin, f3);
+                    updateRecord(id, f1, f2, f3);
+                    break;
+
+                case 4:
+                    cout &lt;&lt; "Enter ID to delete: "; cin >> id;
+                    deleteRecord(id);
+                    break;
+
+                case 5:
+                    displayRecords();
+                    break;
+
+                case 6:
+                    sortByField1();
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    cout &lt;&lt; "Invalid option. Try again.\n";
+            }
+
+        } while (choice != 0);
+    }
+};
+
+int main() {
+    Module customers("Customer", "Name", "Email", "Status");
+    Module sales("Sales", "Item", "Amount", "Date");
+    Module campaigns("Campaign", "Title", "Start", "End");
+    Module tickets("Ticket", "Subject", "Status", "Assignee");
+
+    int choice;
+    do {
+        cout &lt;&lt; "\n==========Welcome to Customer Management System(CRM) System ==========\n\n";
+        cout &lt;&lt; "1. Customer Module\n2. Sales Module\n";
+        cout &lt;&lt; "3. Campaign Module\n4. Ticket Module\n0. Exit\n";
+        cout &lt;&lt; "Select a module: ";
+        cin >> choice;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout &lt;&lt; "Invalid input. Please enter a number.\n";
+            continue;
+        }
+
+        switch (choice) {
+            case 1: customers.moduleMenu(); break;
+            case 2: sales.moduleMenu(); break;
+            case 3: campaigns.moduleMenu(); break;
+            case 4: tickets.moduleMenu(); break;
+            case 0: cout &lt;&lt; "Exiting CRM System. Goodbye!\n"; break;
+            default: cout &lt;&lt; "Invalid option. Try again.\n";
+        }
+
+    } while (choice != 0);
+
+    return 0;
+}</code></pre>
+    </div>
+    
+    <div class="code-content" id="module-code">
+      <button class="copy-btn" onclick="copyCode('module-code-content')">
+        <i class="fas fa-copy"></i> Copy
+      </button>
+      <pre><code class="language-cpp" id="module-code-content">class Module {
+private:
+    Record* head = nullptr;
+    string moduleName, label1, label2, label3;
+
+public:
+    // Constructor
+    Module(string name, string l1, string l2, string l3)
+        : moduleName(name), label1(l1), label2(l2), label3(l3) {}
+
+    // Destructor to clean up memory
+    ~Module() {
+        while (head) {
+            Record* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+
+    // Check if ID exists
+    bool idExists(int id) {
+        Record* temp = head;
+        while (temp) {
+            if (temp->id == id) return true;
+            temp = temp->next;
+        }
+        return false;
+    }
+
+    // Add new record
+    void addRecord(int id, string f1, string f2, string f3) {
+        if (idExists(id)) {
+            cout &lt;&lt; "Error: Record with ID " &lt;&lt; id &lt;&lt; " already exists.\n";
+            return;
+        }
+        Record* newRec = new Record{id, f1, f2, f3, nullptr};
+        if (!head) {
+            head = newRec;
+        } else {
+            Record* temp = head;
+            while (temp->next) temp = temp->next;
+            temp->next = newRec;
+        }
+        cout &lt;&lt; moduleName &lt;&lt; " record added successfully.\n";
+    }
+
+    // Search for record by ID
+    Record* searchRecord(int id) {
+        Record* temp = head;
+        while (temp) {
+            if (temp->id == id) return temp;
+            temp = temp->next;
+        }
+        return nullptr;
+    }
+
+    // Update existing record
+    void updateRecord(int id, string f1, string f2, string f3) {
+        Record* rec = searchRecord(id);
+        if (rec) {
+            rec->field1 = f1;
+            rec->field2 = f2;
+            rec->field3 = f3;
+            cout &lt;&lt; moduleName &lt;&lt; " record updated successfully.\n";
+        } else {
+            cout &lt;&lt; "Error: Record not found.\n";
+        }
+    }
+
+    // Delete record by ID
+    void deleteRecord(int id) {
+        if (!head) {
+            cout &lt;&lt; "Error: No records to delete.\n";
+            return;
+        }
+
+        if (head->id == id) {
+            Record* del = head;
+            head = head->next;
+            delete del;
+            cout &lt;&lt; "Record deleted successfully.\n";
+            return;
+        }
+
+        Record* temp = head;
+        while (temp->next && temp->next->id != id)
+            temp = temp->next;
+
+        if (temp->next) {
+            Record* del = temp->next;
+            temp->next = temp->next->next;
+            delete del;
+            cout &lt;&lt; "Record deleted successfully.\n";
+        } else {
+            cout &lt;&lt; "Error: Record not found.\n";
+        }
+    }
+
+    // Display all records in formatted table
+    void displayRecords() {
+        if (!head) {
+            cout &lt;&lt; "No records found.\n";
+            return;
+        }
+
+        cout &lt;&lt; "\n--- " &lt;&lt; moduleName &lt;&lt; " Records ---\n";
+        cout &lt;&lt; left &lt;&lt; setw(10) &lt;&lt; "ID" &lt;&lt; setw(20) &lt;&lt; label1
+             &lt;&lt; setw(20) &lt;&lt; label2 &lt;&lt; setw(20) &lt;&lt; label3 &lt;&lt; "\n";
+        cout &lt;&lt; string(70, '-') &lt;&lt; endl;
+
+        Record* temp = head;
+        while (temp) {
+            cout &lt;&lt; left &lt;&lt; setw(10) &lt;&lt; temp->id &lt;&lt; setw(20) &lt;&lt; temp->field1
+                 &lt;&lt; setw(20) &lt;&lt; temp->field2 &lt;&lt; setw(20) &lt;&lt; temp->field3 &lt;&lt; "\n";
+            temp = temp->next;
+        }
+    }
+
+    // Sort records by first field using bubble sort
+    void sortByField1() {
+        if (!head || !head->next) return;
+
+        bool swapped;
+        do {
+            swapped = false;
+            Record* current = head;
+            while (current->next) {
+                if (current->field1 > current->next->field1) {
+                    swap(current->id, current->next->id);
+                    swap(current->field1, current->next->field1);
+                    swap(current->field2, current->next->field2);
+                    swap(current->field3, current->next->field3);
+                    swapped = true;
+                }
+                current = current->next;
+            }
+        } while (swapped);
+
+        cout &lt;&lt; moduleName &lt;&lt; " records sorted by " &lt;&lt; label1 &lt;&lt; ".\n";
+    }
+
+    // Interactive menu for the module
+    void moduleMenu() {
+        int choice;
+        do {
+            cout &lt;&lt; "\n--- " &lt;&lt; moduleName &lt;&lt; " Module ---\n";
+            cout &lt;&lt; "1. Add Record\n2. Search Record\n3. Update Record\n";
+            cout &lt;&lt; "4. Delete Record\n5. Display Records\n6. Sort Records\n0. Back\n";
+            cout &lt;&lt; "Enter your choice: ";
+            cin >> choice;
+
+            // Handle invalid input
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout &lt;&lt; "Invalid input. Please enter a number.\n";
+                continue;
+            }
+
+            int id;
+            string f1, f2, f3;
+
+            switch (choice) {
+                case 1: // Add record
+                    cout &lt;&lt; "Enter ID: "; cin >> id;
+                    cin.ignore();
+                    cout &lt;&lt; "Enter " &lt;&lt; label1 &lt;&lt; ": "; getline(cin, f1);
+                    cout &lt;&lt; "Enter " &lt;&lt; label2 &lt;&lt; ": "; getline(cin, f2);
+                    cout &lt;&lt; "Enter " &lt;&lt; label3 &lt;&lt; ": "; getline(cin, f3);
+                    addRecord(id, f1, f2, f3);
+                    break;
+
+                case 2: // Search record
+                    cout &lt;&lt; "Enter ID to search: "; cin >> id;
+                    if (Record* r = searchRecord(id))
+                        cout &lt;&lt; "Found: "&lt;&lt;endl&lt;&lt;" Name: "&lt;&lt; r->field1 &lt;&lt;endl&lt;&lt;" Email: "&lt;&lt; r->field2 &lt;&lt;endl&lt;&lt;" Status: "&lt;&lt; r->field3 &lt;&lt; "\n";
+                    else
+                        cout &lt;&lt; "Record not found.\n";
+                    break;
+
+                case 3: // Update record
+                    cout &lt;&lt; "Enter ID to update: "; cin >> id;
+                    cin.ignore();
+                    cout &lt;&lt; "Enter new " &lt;&lt; label1 &lt;&lt; ": "; getline(cin, f1);
+                    cout &lt;&lt; "Enter new " &lt;&lt; label2 &lt;&lt; ": "; getline(cin, f2);
+                    cout &lt;&lt; "Enter new " &lt;&lt; label3 &lt;&lt; ": "; getline(cin, f3);
+                    updateRecord(id, f1, f2, f3);
+                    break;
+
+                case 4: // Delete record
+                    cout &lt;&lt; "Enter ID to delete: "; cin >> id;
+                    deleteRecord(id);
+                    break;
+
+                case 5: // Display all records
+                    displayRecords();
+                    break;
+
+                case 6: // Sort records
+                    sortByField1();
+                    break;
+
+                case 0: // Back to main menu
+                    break;
+
+                default: // Invalid option
+                    cout &lt;&lt; "Invalid option. Try again.\n";
+            }
+
+        } while (choice != 0);
+    }
+};</code></pre>
+    </div>
+    
+    <div class="code-content" id="features-code">
+      <button class="copy-btn" onclick="copyCode('features-code-content')">
+        <i class="fas fa-copy"></i> Copy
+      </button>
+      <pre><code class="language-cpp" id="features-code-content">// Key Features of the CRM System:
+
+// 1. Linked List Implementation
+struct Record {
+    int id;
+    string field1, field2, field3;
+    Record* next; // Pointer to next record
+};
+
+// 2. Memory Management
+~Module() {
+    while (head) {
+        Record* temp = head;
+        head = head->next;
+        delete temp; // Clean up all allocated memory
+    }
+}
+
+// 3. CRUD Operations
+void addRecord(int id, string f1, string f2, string f3) {
+    Record* newRec = new Record{id, f1, f2, f3, nullptr};
+    // ... add to list ...
+}
+
+Record* searchRecord(int id) {
+    // ... linear search through list ...
+}
+
+void updateRecord(int id, string f1, string f2, string f3) {
+    // ... find and update record ...
+}
+
+void deleteRecord(int id) {
+    // ... find and remove record ...
+}
+
+// 4. Sorting Algorithm
+void sortByField1() {
+    // Bubble sort implementation
+    bool swapped;
+    do {
+        swapped = false;
+        Record* current = head;
+        while (current->next) {
+            if (current->field1 > current->next->field1) {
+                // Swap record data
+                swap(current->id, current->next->id);
+                swap(current->field1, current->next->field1);
+                swap(current->field2, current->next->field2);
+                swap(current->field3, current->next->field3);
+                swapped = true;
+            }
+            current = current->next;
+        }
+    } while (swapped
