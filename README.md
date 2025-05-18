@@ -1,5 +1,5 @@
 # CRM System - DSA Assignment  
-**Group** | [Live Website](https://ababu1212.github.io/DSA-Assignment/)  
+**Group** | [Live Website for full documentations](https://ababu1212.github.io/DSA-Assignment/)  
 
 ## 📌 Team Members  
 | Name                | ID       |  
