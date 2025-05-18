@@ -17,6 +17,8 @@
       --warning: #f72585;
       --text: #2b2d42;
       --text-light: #8d99ae;
+      --code-bg: #282c34;
+      --card-hover: #f0f4ff;
     }
     
     body {
@@ -53,6 +55,7 @@
       font-size: 2.5rem;
       font-weight: 700;
       letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     
     header p {
@@ -88,6 +91,7 @@
     .card:hover {
       transform: translateY(-8px);
       box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+      background: var(--card-hover);
     }
     
     .card-header {
@@ -95,6 +99,17 @@
       color: white;
       padding: 1.5rem;
       text-align: center;
+      position: relative;
+    }
+    
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--success), var(--warning));
     }
     
     .card-header h3 {
@@ -127,11 +142,17 @@
     }
     
     .visible {
-      max-height: 200px;
+      max-height: 500px;
       opacity: 1;
       margin-top: 1rem;
       padding-top: 1rem;
       border-top: 1px solid rgba(0,0,0,0.1);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
     .section {
@@ -141,6 +162,11 @@
       background: white;
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
     }
     
     .section h2 {
@@ -178,11 +204,13 @@
       align-items: center;
       gap: 0.8rem;
       transition: all 0.2s ease;
+      border-left: 4px solid var(--primary);
     }
     
     .tech-item:hover {
       transform: translateY(-3px);
       background: #e9ecef;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     
     .tech-item i {
@@ -194,31 +222,33 @@
     .code-container {
       position: relative;
       margin-top: 2rem;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     }
     
     .code-tabs {
       display: flex;
-      border-bottom: 1px solid #ddd;
-      margin-bottom: -1px;
+      background: var(--dark);
+      overflow-x: auto;
     }
     
     .code-tab {
       padding: 0.75rem 1.5rem;
       cursor: pointer;
-      background: #f1f1f1;
-      border: 1px solid #ddd;
-      border-bottom: none;
-      border-radius: 5px 5px 0 0;
-      margin-right: 5px;
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.7);
       font-size: 0.9rem;
       transition: all 0.2s;
+      white-space: nowrap;
     }
     
     .code-tab.active {
-      background: white;
-      border-bottom: 1px solid white;
+      color: white;
       font-weight: 600;
-      color: var(--primary);
+      background: rgba(255,255,255,0.1);
+      border-bottom: 3px solid var(--accent);
     }
     
     .code-content {
@@ -231,24 +261,40 @@
     
     pre {
       margin: 0;
-      border-radius: 0 0 5px 5px;
+      background: var(--code-bg);
+      border-radius: 0;
+    }
+
+    pre code {
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding: 1.5rem !important;
     }
     
     .copy-btn {
       position: absolute;
       top: 10px;
       right: 10px;
-      background: rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.1);
       border: none;
       color: white;
       padding: 5px 10px;
       border-radius: 4px;
       cursor: pointer;
       transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
     }
     
     .copy-btn:hover {
-      background: rgba(0,0,0,0.3);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .copy-btn.copied {
+      background: var(--success);
     }
     
     footer {
@@ -257,6 +303,17 @@
       background: var(--dark);
       color: white;
       margin-top: 3rem;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--accent), var(--success));
     }
     
     .social-links {
@@ -270,11 +327,49 @@
       color: white;
       font-size: 1.2rem;
       transition: all 0.2s ease;
+      background: rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .social-links a:hover {
       color: var(--accent);
       transform: translateY(-3px);
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary);
+    }
+
+    /* Pulse animation for cards */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
     }
     
     @media (max-width: 768px) {
@@ -284,6 +379,7 @@
       
       .container {
         padding: 1rem;
+        gap: 1rem;
       }
       
       .section {
@@ -302,6 +398,10 @@
         padding: 0.5rem 1rem;
         font-size: 0.8rem;
       }
+
+      .card {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -313,7 +413,7 @@
 </header>
 
 <div class="container">
-  <div class="card" onclick="toggleDetails('abraham')">
+  <div class="card pulse" onclick="toggleDetails('abraham')">
     <div class="card-header">
       <h3>Abraham Abunu</h3>
       <p><strong>ID:</strong> 1600595</p>
@@ -326,7 +426,7 @@
     </div>
   </div>
 
-  <div class="card" onclick="toggleDetails('amanuel')">
+  <div class="card pulse" onclick="toggleDetails('amanuel')">
     <div class="card-header">
       <h3>Amanuel Fikade</h3>
       <p><strong>ID:</strong> 1600914</p>
@@ -339,7 +439,7 @@
     </div>
   </div>
 
-  <div class="card" onclick="toggleDetails('abaynew')">
+  <div class="card pulse" onclick="toggleDetails('abaynew')">
     <div class="card-header">
       <h3>Abaynew Dessie</h3>
       <p><strong>ID:</strong> 1600984</p>
@@ -352,7 +452,7 @@
     </div>
   </div>
 
-  <div class="card" onclick="toggleDetails('haregeweyin')">
+  <div class="card pulse" onclick="toggleDetails('haregeweyin')">
     <div class="card-header">
       <h3>Haregeweyin Atakilt</h3>
       <p><strong>ID:</strong> 1601704</p>
@@ -365,7 +465,7 @@
     </div>
   </div>
 
-  <div class="card" onclick="toggleDetails('bereket')">
+  <div class="card pulse" onclick="toggleDetails('bereket')">
     <div class="card-header">
       <h3>Bereket Tadele</h3>
       <p><strong>ID:</strong> 1600798</p>
@@ -977,4 +1077,132 @@ void sortByField1() {
             }
             current = current->next;
         }
-    } while (swapped
+    } while (swapped);
+}
+
+// 5. User Interface
+void moduleMenu() {
+    // Interactive console menu
+    int choice;
+    do {
+        cout &lt;&lt; "\n--- " &lt;&lt; moduleName &lt;&lt; " Module ---\n";
+        cout &lt;&lt; "1. Add Record\n2. Search Record\n3. Update Record\n";
+        cout &lt;&lt; "4. Delete Record\n5. Display Records\n6. Sort Records\n0. Back\n";
+        cout &lt;&lt; "Enter your choice: ";
+        cin >> choice;
+        
+        // ... handle user input ...
+    } while (choice != 0);
+}
+
+// 6. Data Validation
+bool idExists(int id) {
+    Record* temp = head;
+    while (temp) {
+        if (temp->id == id) return true;
+        temp = temp->next;
+    }
+    return false;
+}
+
+// 7. Formatted Output
+void displayRecords() {
+    if (!head) {
+        cout &lt;&lt; "No records found.\n";
+        return;
+    }
+
+    cout &lt;&lt; "\n--- " &lt;&lt; moduleName &lt;&lt; " Records ---\n";
+    cout &lt;&lt; left &lt;&lt; setw(10) &lt;&lt; "ID" &lt;&lt; setw(20) &lt;&lt; label1
+         &lt;&lt; setw(20) &lt;&lt; label2 &lt;&lt; setw(20) &lt;&lt; label3 &lt;&lt; "\n";
+    cout &lt;&lt; string(70, '-') &lt;&lt; endl;
+
+    Record* temp = head;
+    while (temp) {
+        cout &lt;&lt; left &lt;&lt; setw(10) &lt;&lt; temp->id &lt;&lt; setw(20) &lt;&lt; temp->field1
+             &lt;&lt; setw(20) &lt;&lt; temp->field2 &lt;&lt; setw(20) &lt;&lt; temp->field3 &lt;&lt; "\n";
+        temp = temp->next;
+    }
+}</code></pre>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2023 CRM Project Team | All Rights Reserved</p>
+  <p>University Group Project | Computer Science Department</p>
+  <div class="social-links">
+    <a href="#"><i class="fab fa-github"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fas fa-envelope"></i></a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>
+  // Initialize syntax highlighting
+  document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre code').forEach((el) => {
+      hljs.highlightElement(el);
+    });
+  });
+
+  // Toggle team member details
+  function toggleDetails(id) {
+    const element = document.getElementById(id);
+    element.classList.toggle('hidden');
+    element.classList.toggle('visible');
+  }
+
+  // Show code tab content
+  function showCodeTab(tabId) {
+    // Hide all code content
+    document.querySelectorAll('.code-content').forEach(content => {
+      content.classList.remove('active');
+    });
+    
+    // Deactivate all tabs
+    document.querySelectorAll('.code-tab').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    
+    // Activate selected tab and content
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // Copy code to clipboard
+  function copyCode(elementId) {
+    const codeElement = document.getElementById(elementId);
+    const range = document.createRange();
+    range.selectNode(codeElement);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+    
+    // Visual feedback
+    const btn = event.currentTarget;
+    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    btn.classList.add('copied');
+    
+    setTimeout(() => {
+      btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+
+  // Add pulse animation to cards on hover
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.classList.add('pulse');
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('pulse');
+    });
+  });
+</script>
+</body>
+</html>
